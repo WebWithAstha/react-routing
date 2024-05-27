@@ -1,7 +1,11 @@
 import React from 'react'
+import axios from '../helper/Instance.jsx'
 import { Outlet,NavLink } from 'react-router-dom'
 
 const About = () => {
+  const handleClick = async ()=>{
+    const {data} = await axios.get('/posts')
+  }
   return (
     <>
       <div className='w-full h-full p-20'>
@@ -16,6 +20,7 @@ const About = () => {
           </div>
 
         <Outlet/>
+          <button onClick={handleClick} className='ml-4 mt-6'>Get users</button>
       </div>
     </>
   )
