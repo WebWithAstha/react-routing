@@ -1,5 +1,5 @@
 import axios from '../helper/Instance.jsx'
-import {React,useState} from 'react'
+import {React,useEffect,useState} from 'react'
 import { NavLink } from 'react-router-dom'
 
 
@@ -9,6 +9,28 @@ const Home = () => {
     const { data } = await axios.get('/users')
     setusers([...data])
   }
+
+  const [page, setpage] = useState(2)
+  const [images, setimages] = useState([])
+  const getimages = async (page) =>{
+    try {
+      const {data} = await axios.get(`https://picsum.photos/v2/list?page=${page}&limit=5`)
+      setimages(data)
+      console.log(data)
+    } catch (error) {
+      
+    }
+  }
+  console.log(page)
+
+  useEffect(() => {
+    getimages(page)
+    
+  
+    
+  }, [page])
+  
+
   return (
     <>
     <div className='w-full h-full p-20 flex items-center gap-10'>
@@ -27,6 +49,18 @@ const Home = () => {
         <h1 key={i} className='mt-2'>{i+1}. {user.name}</h1>
       )
     })}
+    </div>
+    <div className='flex gap-4 w-full  p-8'>
+      {images.map(img=>{
+        return(
+          <img className='w-48 h-48 object-cover rounded-lg shadow-lg' src={img.download_url} alt="" />
+        )
+      })}
+    </div>
+    <div className='flex justify-center items-center gap-2'>
+      <span className='cursor-pointer'  onClick={()=>(setpage(page>1 && page-1))}>pre</span>
+      <span>{page}</span>
+      <span className='cursor-pointer' onClick={()=>(setpage(page+1))}>next</span>
     </div>
     </>
   )

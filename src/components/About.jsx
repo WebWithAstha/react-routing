@@ -7,13 +7,17 @@ const About = () => {
     const { data } = await axios.get('/posts')
   }
   console.log("loading")
+
+  
   useEffect(() => {
+
     console.log("mounting")
 
     return () => {
       console.log("Unmounting")
     }
-  }, [])
+ 
+  }, ["updation"])
 
 
   return (
@@ -26,7 +30,6 @@ const About = () => {
           <NavLink to="/about/1" className='hover:bg-zinc-300 border border-r-0 px-3 py-1 '>Section 1</NavLink>
           <NavLink to="/about/2" className='hover:bg-zinc-300 border border-r-0 px-3 py-1 '>Section 2</NavLink>
           <NavLink to="/about/3" className='hover:bg-zinc-300 border px-3 py-1 '>Section 3</NavLink>
-
         </div>
 
         <Outlet />

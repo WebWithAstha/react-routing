@@ -14,7 +14,6 @@ const Router = () => {
             <Route path='/about' element={<About />}>
                 <Route path='/about/:section' element={<Details />} />
             </Route>
-
             <Route path='*' element={<NotFound />} />
         </Routes>
     )
